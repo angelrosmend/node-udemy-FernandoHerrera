@@ -1,22 +1,22 @@
 //////REQUIREDS//////
 
-const fs = require('fs'); // Libreria incluida en node
+//const fs = require('fs'); // Libreria incluida en node
 // const fs = require('express'); //Libreria externa
 // const fs = require('./fs'); //Librerias propias
 
+//console.log(process.argv);
+
+const {createFile} = require('./multiplicar/multiplicar');
 
 
-let base = 5;
-let data = ''
+let argv = process.argv;
+let parameter = argv[2];
+let base = parameter.split('=')[1]
 
-for(let i = 1; i <= 10; i++){
-  data +=`${base} * ${i} = ${base * i}\n`
-}
+console.log(base)
 
-fs.writeFile(`tablas/tabla-${base}.txt`, data, (err) => {
- 
- if (err) throw err;
 
- console.log( `El archivo tabla-${base}.txt ha sido creado`);
-});
 
+createFile(base)
+     .then(file => console.log(`Archivo creado: ${ file }`))
+     .catch(e => console.log(e));
